@@ -1,7 +1,13 @@
 //Fetching works data from server.
 const workResponse = await fetch('http://localhost:5678/api/works');
 const worksData = await workResponse.json();
+
+//Creates a new Set and adds unique category names from worksData to it.
 const setCategories = new Set();
+worksData.forEach(work => {
+    
+    setCategories.add(work.category.name);
+});
 
 
 const portfolio = document.querySelector("#portfolio");
@@ -14,14 +20,14 @@ const gallery = document.createElement("div");
 function generateFilter(filters) {
     const filterList = document.createElement("ul");
     portfolio.appendChild(filterList)
-    
+
     const filterAll = document.createElement("li");
     filterAll.textContent = "Tous"
     filterList.appendChild(filterAll)
-    
+
     for (let filter of filters) {
         const filterItem = document.createElement("li");
-        filterItem.textContent = filter.name;
+        filterItem.textContent = filter;
         filterList.appendChild(filterItem);
     }
 }

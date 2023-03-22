@@ -310,6 +310,7 @@ footer nav ul {
 	margin:0 5px 51px 5px;
 	padding:0 9px;
 	height: 37px;
+	cursor: pointer;
 }
 
 #portfolio li:hover{
