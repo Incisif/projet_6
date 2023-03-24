@@ -1,14 +1,18 @@
-//Fetching works data from server.
-const workResponse = await fetch('http://localhost:5678/api/works');
-const worksData = await workResponse.json();
+import { getWork } from "./api.js"
 
-//Creates a new Set and adds unique category names from worksData to it.
+
+//create a set to store the categories
 const setCategories = new Set();
+const worksData = await getWork()
 worksData.forEach(work => {
-    
     setCategories.add(work.category.name);
 });
-
+//Create an array from the set of "id"
+const setCategoriesId = new Set();
+worksData.forEach(work => {
+    setCategoriesId.add(work.category.id);
+});
+const categoriesId = Array.from(setCategoriesId);
 
 const portfolio = document.querySelector("#portfolio");
 const gallery = document.createElement("div");
@@ -19,28 +23,34 @@ const gallery = document.createElement("div");
 */
 function generateFilter(filters) {
     const filterList = document.createElement("ul");
-    portfolio.appendChild(filterList)
+    portfolio.append(filterList)
 
     const filterAll = document.createElement("li");
     filterAll.textContent = "Tous"
-    filterList.appendChild(filterAll)
+    filterList.append(filterAll)
+    filterAll.setAttribute("id",0)
 
+    let i=0;
     for (let filter of filters) {
         const filterItem = document.createElement("li");
         filterItem.textContent = filter;
-        filterList.appendChild(filterItem);
+        filterList.append(filterItem);
+        filterItem.setAttribute("id",categoriesId[i++])
     }
 }
+
+
+
 /**
  * Generates a gallery of works by creating HTML elements and appending them to the DOM.
 *
-* @param {array} works - An array of objects representing the works to be displayed in the gallery.
+* @param {string[]} works )- An array of objects representing the works to be displayed in the gallery.
 */
 function generateGallery(works) {
-    
+
     gallery.classList.add("gallery");
-    portfolio.appendChild(gallery);
-    
+    portfolio.append(gallery);
+
     // Loop through the array of works and create a new HTML figure element for each work.
     for (let element of works) {
         const figure = document.createElement("figure");
@@ -49,15 +59,12 @@ function generateGallery(works) {
         imageFigure.alt = element.title;
         const captionFigure = document.createElement("figcaption");
         captionFigure.innerText = element.title;
-        gallery.appendChild(figure);
-        figure.appendChild(imageFigure);
-        figure.appendChild(captionFigure);
-        
-        // Add the category of the work to the set of categories.
-        setCategories.add(element.category);
+        gallery.append(figure);
+        figure.append(imageFigure);
+        figure.append(captionFigure);
     }
 }
 
-
 generateFilter(setCategories)
 generateGallery(worksData)
+
