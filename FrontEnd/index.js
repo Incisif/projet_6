@@ -1,5 +1,7 @@
 import { getWork } from "./api.js"
 
+const portfolio = document.querySelector("#portfolio");
+const gallery = document.createElement("div");
 
 //create a set to store the categories
 const setCategories = new Set();
@@ -14,8 +16,6 @@ worksData.forEach(work => {
 });
 const categoriesId = Array.from(setCategoriesId);
 
-const portfolio = document.querySelector("#portfolio");
-const gallery = document.createElement("div");
 
 /**
  * Generates a filter list for a given array of filters.
@@ -23,19 +23,50 @@ const gallery = document.createElement("div");
 */
 function generateFilter(filters) {
     const filterList = document.createElement("ul");
-    portfolio.append(filterList)
+    portfolio.append(filterList);
 
     const filterAll = document.createElement("li");
-    filterAll.textContent = "Tous"
-    filterList.append(filterAll)
-    filterAll.setAttribute("id",0)
+    filterAll.textContent = "Tous";
+    filterList.append(filterAll);
+    filterAll.setAttribute("id", 0);
+    filterAll.classList.add("filter-active", "filter-inactive");
+    filterAll.addEventListener("click", () => {
+        generateGallery(worksData);
+        const allFilters = document.querySelectorAll("#portfolio ul li");
 
-    let i=0;
+        allFilters.forEach(filter => {
+            filter.classList.remove("filter-active");
+            filter.classList.add("filter-inactive")
+        });
+
+        filterAll.classList.add("filter-active");
+    });
+
+    let i = 0;
     for (let filter of filters) {
         const filterItem = document.createElement("li");
         filterItem.textContent = filter;
         filterList.append(filterItem);
-        filterItem.setAttribute("id",categoriesId[i++])
+        filterItem.setAttribute("id", categoriesId[i++]);
+        filterItem.classList.add("filter-inactive")
+
+        filterItem.addEventListener("click", (event) => {
+            const filterId = event.target.id;
+
+            const filter = worksData.filter(work => work.category.id == filterId);
+            gallery.innerHTML = "";
+            generateGallery(filter);
+            const allFilters = document.querySelectorAll("#portfolio ul li");
+
+            allFilters.forEach(filter => {
+                filter.classList.remove("filter-active");
+                filter.classList.add("filter-inactive")
+            });
+
+            filterItem.classList.add("filter-active");
+
+        });
+
     }
 }
 
