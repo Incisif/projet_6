@@ -191,16 +191,17 @@ li:hover {
 #introduction {
 	display: flex;
 	align-items: center;
-	width: 100%;
+	margin: auto;
+	width: 85%;
 }
 
 #introduction figure {
-	flex: 1
+	flex: 1;
+
 }
 
 #introduction img {
 	display: block;
-	margin: auto;
 	width: 80%;
 }
 
@@ -210,15 +211,22 @@ li:hover {
 
 #introduction h2 {
 	margin-bottom: 1em;
+
 }
 
 #introduction p {
 	margin-bottom: 0.5em;
 }
 
+#portfolio {
+	width: 85%;
+	margin: auto;
+}
+
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 51px;
+	margin-top: 139px;
 }
 
 .gallery {
@@ -235,8 +243,10 @@ li:hover {
 }
 
 #contact {
-	width: 50%;
-	margin: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #contact>* {
@@ -249,10 +259,13 @@ li:hover {
 }
 
 #contact form {
+
 	text-align: left;
-	margin-top: 30px;
+	margin: 30px auto 0 auto;
+
 	display: flex;
 	flex-direction: column;
+
 }
 
 #contact input {
@@ -260,20 +273,25 @@ li:hover {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
 }
 
 #contact label {
 	margin: 2em 0 1em 0;
+	width: min-content;
 }
 
 #contact textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	width: 379px;
 }
 
 #login {
-	width: 50%;
-	margin: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 #login>* {
@@ -281,15 +299,16 @@ li:hover {
 
 }
 
-#login h2 {
-	margin-bottom: 20px;
-}
+
 
 #login form {
+	width: 379px;
+	;
 	text-align: left;
-	margin-top: 30px;
+	margin: 0 auto 0 auto;
 	display: flex;
 	flex-direction: column;
+
 }
 
 #login input {
@@ -297,15 +316,18 @@ li:hover {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
 }
 
 #login label {
-	margin: 2em 0 1em 0;
+	margin: 37px 0 1em 0;
+	width: content;
 }
 
 #login textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	width: 379px;
 }
 
 input[type="submit"] {
@@ -317,18 +339,24 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+
 }
 
-footer {
+.footer {
 	background-color: white;
 	height: 60px;
 	display: flex;
 	justify-content: flex-end;
-
 	align-items: center;
+	
+}
+.fixed{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
 }
 
-footer nav ul {
+.footer nav ul {
 	margin: 2em;
 }
 
@@ -362,8 +390,23 @@ footer nav ul {
 }
 
 .wrapper {
-	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 0 auto;
 	max-width: 1140px;
 	width: 100%;
 
+	
+}
+
+#login a {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	text-decoration-line: underline;
+	color: black;
+	text-align: center;
 }

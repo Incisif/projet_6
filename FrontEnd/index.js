@@ -44,6 +44,7 @@ function generateFilter(filters) {
 
     let i = 0;
     for (let filter of filters) {
+
         const filterItem = document.createElement("li");
         filterItem.textContent = filter;
         filterList.append(filterItem);
