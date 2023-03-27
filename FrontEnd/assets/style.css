@@ -384,7 +384,7 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-.filter-active {
+.filter {
 	background-color: #1D6154;
 	color: white;
 }

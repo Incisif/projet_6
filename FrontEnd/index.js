@@ -29,17 +29,12 @@ function generateFilter(filters) {
     filterAll.textContent = "Tous";
     filterList.append(filterAll);
     filterAll.setAttribute("id", 0);
-    filterAll.classList.add("filter-active", "filter-inactive");
+    filterAll.classList.add("filter", "filter-inactive");
     filterAll.addEventListener("click", () => {
         generateGallery(worksData);
-        const allFilters = document.querySelectorAll("#portfolio ul li");
+        const filters = document.querySelectorAll("#portfolio ul li");
 
-        allFilters.forEach(filter => {
-            filter.classList.remove("filter-active");
-            filter.classList.add("filter-inactive")
-        });
-
-        filterAll.classList.add("filter-active");
+        activateFilters(filters, filterAll);
     });
 
     let i = 0;
@@ -57,21 +52,22 @@ function generateFilter(filters) {
             const filter = worksData.filter(work => work.category.id == filterId);
             gallery.innerHTML = "";
             generateGallery(filter);
-            const allFilters = document.querySelectorAll("#portfolio ul li");
+            const filters = document.querySelectorAll("#portfolio ul li");
 
-            allFilters.forEach(filter => {
-                filter.classList.remove("filter-active");
-                filter.classList.add("filter-inactive")
-            });
-
-            filterItem.classList.add("filter-active");
+            activateFilters(filters, filterItem);
 
         });
 
     }
 }
+function activateFilters(filters, filterItem) {
+    filters.forEach(filter => {
+        filter.classList.remove("filter");
+        filter.classList.add("filter-inactive");
+    });
 
-
+    filterItem.classList.add("filter");
+}
 
 /**
  * Generates a gallery of works by creating HTML elements and appending them to the DOM.
