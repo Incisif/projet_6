@@ -29,7 +29,7 @@ function generateFilter(filters) {
     filterAll.textContent = "Tous";
     filterList.append(filterAll);
     filterAll.setAttribute("id", 0);
-    filterAll.classList.add("filter", "filter-inactive");
+    filterAll.classList.add("filter", "filter-active");
     filterAll.addEventListener("click", () => {
         generateGallery(worksData);
         const filters = document.querySelectorAll("#portfolio ul li");
@@ -44,7 +44,7 @@ function generateFilter(filters) {
         filterItem.textContent = filter;
         filterList.append(filterItem);
         filterItem.setAttribute("id", categoriesId[i++]);
-        filterItem.classList.add("filter-inactive")
+        filterItem.classList.add("filter")
 
         filterItem.addEventListener("click", (event) => {
             const filterId = event.target.id;
@@ -62,11 +62,11 @@ function generateFilter(filters) {
 }
 function activateFilters(filters, filterItem) {
     filters.forEach(filter => {
-        filter.classList.remove("filter");
-        filter.classList.add("filter-inactive");
+        filter.classList.remove("filter-active");
+        filter.classList.add("filter");
     });
 
-    filterItem.classList.add("filter");
+    filterItem.classList.add("filter-active");
 }
 
 /**

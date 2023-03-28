@@ -368,7 +368,7 @@ input[type="submit"] {
 
 }
 
-.filter-inactive {
+.filter {
 	color: #1D6154;
 	display: flex;
 	align-items: center;
@@ -384,7 +384,7 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-.filter {
+.filter-active {
 	background-color: #1D6154;
 	color: white;
 }
