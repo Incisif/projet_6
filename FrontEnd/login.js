@@ -26,19 +26,20 @@ async function login(email, password) {
     }
 }
 
-loginButton.addEventListener("click", (event) => {
-    if (event.target.id === 'login') {
+loginButton.addEventListener("click", () => {
+
+    const email = emailInput.value;
+    const password = passwordInput.value;
+
+    if (email.trim === '' || !email.includes('@')) {
+        alert("E-mail invalide");
+        return;
         
-        const email = emailInput.value;
-        const password = passwordInput.value;
-        if(email.trim === '' || !email.includes('@')){
-            alert("E-mail invalide");
-            return;
-        }
-        if(password.trim === ''){
-            alert("Veuillez entrer un mot de passe valide");
-            return;
-        }
-        login(email, password);
     }
+    if (password.trim === '') {
+        alert("Veuillez entrer un mot de passe valide");
+        return;
+    }
+    login(email, password);
+
 });

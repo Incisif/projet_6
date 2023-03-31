@@ -38,8 +38,10 @@ function generateFilter(filters) {
     });
 
     let i = 0;
+
     for (let filter of filters) {
 
+        console.log(i)
         const filterItem = document.createElement("li");
         filterItem.textContent = filter;
         filterList.append(filterItem);
