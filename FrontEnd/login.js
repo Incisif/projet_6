@@ -13,13 +13,17 @@ async function login(email, password) {
             body: JSON.stringify(user)
 
         });
-        console.log(response)
+
         if (!response.ok) {
             throw new Error("Erreur lors de la connexion");
         }
         const responseData = await response.json();
         console.log("Connexion réussie", responseData);
         window.location.replace("index.html");
+
+       
+
+        
     } catch (error) {
         console.error(error);
         alert("E-mail ou mot de passe incorrect");
@@ -34,7 +38,7 @@ loginButton.addEventListener("click", () => {
     if (email.trim === '' || !email.includes('@')) {
         alert("E-mail invalide");
         return;
-        
+
     }
     if (password.trim === '') {
         alert("Veuillez entrer un mot de passe valide");
