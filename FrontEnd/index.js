@@ -24,7 +24,7 @@ const categoriesId = Array.from(setCategoriesId);
 function generateFilter(filters) {
     const filterList = document.createElement("ul");
     portfolio.append(filterList);
-    
+
     const filterAll = document.createElement("li");
     filterAll.textContent = "Tous";
     filterList.append(filterAll);
@@ -33,32 +33,32 @@ function generateFilter(filters) {
     filterAll.addEventListener("click", () => {
         generateGallery(worksData);
         const filters = document.querySelectorAll("#portfolio ul li");
-        
+
         activateFilters(filters, filterAll);
     });
-    
+
     let i = 0;
-    
+
     for (let filter of filters) {
-        
+
         const filterItem = document.createElement("li");
         filterItem.textContent = filter;
         filterList.append(filterItem);
         filterItem.setAttribute("id", categoriesId[i++]);
         filterItem.classList.add("filter")
-        
+
         filterItem.addEventListener("click", (event) => {
             const filterId = event.target.id;
-            
+
             const filter = worksData.filter(work => work.category.id == filterId);
             gallery.innerHTML = "";
             generateGallery(filter);
             const filters = document.querySelectorAll("#portfolio ul li");
-            
+
             activateFilters(filters, filterItem);
-            
+
         });
-        
+
     }
 }
 function activateFilters(filters, filterItem) {
@@ -66,7 +66,7 @@ function activateFilters(filters, filterItem) {
         filter.classList.remove("filter-active");
         filter.classList.add("filter");
     });
-    
+
     filterItem.classList.add("filter-active");
 }
 
@@ -76,10 +76,10 @@ function activateFilters(filters, filterItem) {
 * @param {string[]} works )- An array of objects representing the works to be displayed in the gallery.
 */
 function generateGallery(works) {
-    
+
     gallery.classList.add("gallery");
     portfolio.append(gallery);
-    
+
     // Loop through the array of works and create a new HTML figure element for each work.
     for (let element of works) {
         const figure = document.createElement("figure");
@@ -97,16 +97,74 @@ function generateGallery(works) {
 generateFilter(setCategories);
 generateGallery(worksData);
 
-const tokenValue = localStorage.getItem("token");
+
+//Verify admin status and add creation mode  to HTML page if matched.
+const tokenValue = sessionStorage.getItem("token");
+const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4MDI4ODQyNSwiZXhwIjoxNjgwMzc0ODI1fQ.yBzoJrpNc4CUlIS5xY6DdOVooEpeL2cK1TUNnGLu2YE";
+let userStatus = verificationUserStatus(adminToken)
 console.log(tokenValue)
-function verificationOfAdminStatus(token) {
-    
-    if (token === "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY4MDI4ODQyNSwiZXhwIjoxNjgwMzc0ODI1fQ.yBzoJrpNc4CUlIS5xY6DdOVooEpeL2cK1TUNnGLu2YE") {
-        const CreationModeBar = document.createElement("div");
-        CreationModeBar.classList.add("creationModeBar");
-        const body = document.getElementById("body-content");
-        body.insertBefore(CreationModeBar, body.firstChild);
-        CreationModeBar.innerHTML = "<span>"
+
+function creationMode(userStatus) {
+    const loginHtml = document.getElementById("login");
+    // const creationIcone = '"class="fa-solid fa-pen""'
+
+    if (tokenValue !== null) {
+        loginHtml.innerHTML = "logout";
+        loginHtml.removeAttribute("href");
+        logout(loginHtml);
+
+        if (userStatus === "admin") {
+            //Creation mode header bar
+            const editionBar = document.createElement("div");
+            editionBar.classList.add("editionBar");
+            const body = document.getElementById("body-content");
+            body.insertBefore(editionBar, body.firstChild);
+            editionBar.innerHTML = 
+          
+            `<span  id= "editionBar_icone" class="fa-solid fa-pen"></span>
+            <p id= editionBar_text >Mode création</p>
+            <div id= "editionBar_publicationButton">
+                <p id= "publicationButton_text">Publier les changements<p/>
+            </div>`;
+
+            //Introduction modification link
+            const introduction = document.getElementById("introduction");
+            const introModifyButton = document.createElement("div");
+            introModifyButton.classList.add("modify-container")
+            introModifyButton.innerHTML = `<span class="fa-solid fa-pen " id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
+            introduction.append(introModifyButton);
+
+            //Gallery modification link 
+            const portfolioTitle = document.querySelector("#portfolio h2");
+            const galleryModifyButton = document.createElement("div");
+            galleryModifyButton.classList.add("gallery-edition-container")
+            galleryModifyButton.innerHTML = `<span class="fa-solid fa-pen " id="modify-icone"></span><span id= "modify-text">Modifier</span>`
+            portfolioTitle.insertAdjacentElement("afterend",galleryModifyButton);
+            
+            
+
+            
+            //hide filters in edition mode
+            const filterList = document.querySelector("#portfolio ul");
+            filterList.style.display = "none";
+
+
+        }
     }
 }
-    verificationOfAdminStatus(tokenValue);
+
+creationMode(userStatus);
+
+function logout(loginLink) {
+    loginLink.addEventListener("click", () => {
+        sessionStorage.removeItem("token");
+        loginLink.setAttribute("href", "/FrontEnd/login.html");
+
+    });
+}
+function verificationUserStatus(token) {
+    if (token === adminToken) {
+        return "admin"
+
+    }
+}

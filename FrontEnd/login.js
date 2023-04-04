@@ -2,6 +2,7 @@ const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("login-button");
 
+// Function to handle the login process
 async function login(email, password) {
     const user = { email, password };
     try {
@@ -21,15 +22,16 @@ async function login(email, password) {
         console.log("Connexion réussie", responseData);
         window.location.replace("index.html");
 
-       
+        //sets the "token" key with the value of the token received from the API in the sessionStorage.
+        sessionStorage.setItem("token",responseData.token);
 
-        
     } catch (error) {
         console.error(error);
         alert("E-mail ou mot de passe incorrect");
     }
 }
 
+//When the login button is clicked, get the email and password and call the login function
 loginButton.addEventListener("click", () => {
 
     const email = emailInput.value;

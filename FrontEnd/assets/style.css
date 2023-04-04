@@ -182,6 +182,7 @@ nav ul {
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
+	cursor: pointer;
 }
 
 li:hover {
@@ -193,7 +194,10 @@ li:hover {
 	align-items: center;
 	margin: auto;
 	width: 85%;
+	margin-bottom: 139px;
+
 }
+
 
 #introduction figure {
 	flex: 1;
@@ -218,6 +222,26 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
+.modify-container {
+	margin-top: 1rem;
+	position: absolute;
+	left: 0;
+	top: 100%;
+}
+
+#modify-icone {
+	font-size: 1rem;
+	margin-right: 11px;
+
+}
+
+#modify-text {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+}
+
 #portfolio {
 	width: 85%;
 	margin: auto;
@@ -225,8 +249,7 @@ li:hover {
 
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 51px;
-	margin-top: 139px;
+
 }
 
 .gallery {
@@ -235,6 +258,7 @@ li:hover {
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-column-gap: 20px;
 	grid-row-gap: 20px;
+	margin-top: 51px;
 }
 
 .gallery img {
@@ -338,6 +362,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 
 }
 
@@ -347,9 +372,10 @@ input[type="submit"] {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	
+
 }
-.fixed{
+
+.fixed {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
@@ -364,6 +390,7 @@ input[type="submit"] {
 #portfolio ul {
 	display: flex;
 	justify-content: center;
+	margin-top: 51px;
 
 }
 
@@ -377,7 +404,7 @@ input[type="submit"] {
 	font-size: 1rem;
 	border: 1px solid #1D6154;
 	border-radius: 3.75rem;
-	margin: 0 5px 51px 5px;
+	margin: 0 5px;
 	padding: 0 9px;
 	height: 37px;
 	cursor: pointer;
@@ -396,7 +423,7 @@ input[type="submit"] {
 	max-width: 1140px;
 	width: 100%;
 
-	
+
 }
 
 #login a {
@@ -409,7 +436,134 @@ input[type="submit"] {
 	color: black;
 	text-align: center;
 }
-.creationModeBar{
+
+.editionBar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	background-color: black;
 	height: 59px;
+}
+
+#editionBar_icone {
+	color: white;
+	font-size: 1rem;
+}
+
+#editionBar_text {
+	color: white;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 16px;
+	margin-left: 9px;
+}
+
+#editionBar_publicationButton {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 38px;
+	width: 216px;
+	background: #FFFFFF;
+	border-radius: 60px;
+	margin-left: 21px;
+}
+
+#publicationButton_text {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+
+}
+
+.portfolio_title {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.gallery-edition-container {
+	margin-left: 2rem;
+	cursor: pointer;
+}
+
+/*MODAL*/
+.modal-container {
+	display: none;
+	position: fixed;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+}
+.modal-container.active{
+	display: block;
+}
+
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	width: 630px;
+	height: 731px;
+	background: #FFFFFF;
+	border-radius: 10px;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -30%)
+}
+
+.close-modal {
+	color: black;
+	font-size: 1rem;
+	position: absolute;
+	top: 32px;
+	right: 35px;
+	cursor: pointer;
+}
+
+#modal_title {
+	text-align: center;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	color: #000000;
+	margin-top: 60px;
+}
+
+#modal_separation {
+	height: 1px;
+	width: 420px;
+	background-color: #B3B3B3;
+}
+
+#modal_gallery {
+	width: 520px;
+	height: 430px;
+	margin-top: 46px;
+}
+
+.modal_button {
+	height: 36px;
+	width: 237px;
+}
+
+.modal_delete {
+	font-family: 'Syne';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	color: #D65353;
+	text-decoration: none;
 }
