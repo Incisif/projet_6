@@ -1,6 +1,5 @@
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
-const loginButton = document.getElementById("login-button");
 
 // Function to handle the login process
 async function login(email, password) {
@@ -32,8 +31,8 @@ async function login(email, password) {
 }
 
 //When the login button is clicked, get the email and password and call the login function
-loginButton.addEventListener("click", () => {
-
+document.forms[0].addEventListener("submit", (e) => {
+    e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
 

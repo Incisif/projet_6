@@ -1,4 +1,5 @@
 import { getWork } from "./api.js"
+import { toggleModal} from "./modal.js"
 
 const portfolio = document.querySelector("#portfolio");
 const gallery = document.createElement("div");
@@ -106,7 +107,7 @@ console.log(tokenValue)
 
 function creationMode(userStatus) {
     const loginHtml = document.getElementById("login");
-    // const creationIcone = '"class="fa-solid fa-pen""'
+    
 
     if (tokenValue !== null) {
         loginHtml.innerHTML = "logout";
@@ -120,34 +121,38 @@ function creationMode(userStatus) {
             const body = document.getElementById("body-content");
             body.insertBefore(editionBar, body.firstChild);
             editionBar.innerHTML = 
-          
-            `<span  id= "editionBar_icone" class="fa-solid fa-pen"></span>
+            
+            `<span  id= "editionBar_icone" class="fa-sharp fa-solid fa-pen-to-square"></span>
             <p id= editionBar_text >Mode création</p>
             <div id= "editionBar_publicationButton">
                 <p id= "publicationButton_text">Publier les changements<p/>
             </div>`;
 
-            //Introduction modification link
+            //Link to edit the introductory image
             const introduction = document.getElementById("introduction");
             const introModifyButton = document.createElement("div");
-            introModifyButton.classList.add("modify-container")
-            introModifyButton.innerHTML = `<span class="fa-solid fa-pen " id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
+            introModifyButton.classList.add("img-modify-container")
+            introModifyButton.innerHTML = `<span class="fa-sharp fa-solid fa-pen-to-square" id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
             introduction.append(introModifyButton);
 
-            //Gallery modification link 
+            //Link to edit the introduction text
+            const introductionTitle = document.getElementById("introduction_title");
+            const introTextModifyButton = document.createElement("div");
+            introTextModifyButton.classList.add("txt-modify-container");
+            introTextModifyButton.innerHTML = `<span class="fa-sharp fa-solid fa-pen-to-square" id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
+            introductionTitle.parentNode.insertBefore(introTextModifyButton, introductionTitle.nextSibling);
+
+            //Link to edit the gallery
             const portfolioTitle = document.querySelector("#portfolio h2");
             const galleryModifyButton = document.createElement("div");
-            galleryModifyButton.classList.add("gallery-edition-container")
-            galleryModifyButton.innerHTML = `<span class="fa-solid fa-pen " id="modify-icone"></span><span id= "modify-text">Modifier</span>`
+            galleryModifyButton.classList.add("gallery-edition-container", "modal-trigger")
+            galleryModifyButton.innerHTML = `<span class="fa-sharp fa-solid fa-pen-to-square" id="modify-icone"></span><span id= "modify-text">Modifier</span>`
             portfolioTitle.insertAdjacentElement("afterend",galleryModifyButton);
             
-            
-
-            
-            //hide filters in edition mode
+            //Hide filters in edition mode
             const filterList = document.querySelector("#portfolio ul");
             filterList.style.display = "none";
-
+            toggleModal()
 
         }
     }

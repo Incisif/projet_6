@@ -195,6 +195,7 @@ li:hover {
 	margin: auto;
 	width: 85%;
 	margin-bottom: 139px;
+	position: relative;
 
 }
 
@@ -207,6 +208,7 @@ li:hover {
 #introduction img {
 	display: block;
 	width: 80%;
+	
 }
 
 #introduction article {
@@ -222,11 +224,13 @@ li:hover {
 	margin-bottom: 0.5em;
 }
 
-.modify-container {
-	margin-top: 1rem;
+.img-modify-container {
 	position: absolute;
-	left: 0;
-	top: 100%;
+	bottom: -30px;
+}
+.txt-modify-container{
+	position: absolute;
+	top: 10px;
 }
 
 #modify-icone {
@@ -322,8 +326,6 @@ li:hover {
 	text-align: center;
 
 }
-
-
 
 #login form {
 	width: 379px;
@@ -497,6 +499,7 @@ input[type="submit"] {
 	top: 0;
 	width: 100vw;
 	height: 100vh;
+	z-index: 1;
 }
 .modal-container.active{
 	display: block;
