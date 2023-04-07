@@ -149,6 +149,13 @@ section {
 	margin: 50px 0
 }
 
+a {
+	text-decoration: none;
+	/* remove underline */
+	color: inherit;
+	/* inherit color from parent element */
+}
+
 h1 {
 	display: flex;
 	flex-direction: column;
@@ -369,6 +376,10 @@ input[type="submit"] {
 
 }
 
+input[type="submit"]:hover {
+	background: #0E2F28;
+}
+
 .footer {
 	background-color: white;
 	height: 60px;
@@ -493,7 +504,7 @@ input[type="submit"] {
 	cursor: pointer;
 }
 
-/*MODAL*/
+/*MODAL GALLERY*/
 .modal-container {
 	display: none;
 	position: fixed;
@@ -569,7 +580,7 @@ input[type="submit"] {
 	text-decoration: none;
 }
 
-#modal__validation-button {
+#modal__add-button {
 	width: 237px;
 	height: 36px;
 	font-size: 1.2em;
@@ -589,7 +600,6 @@ input[type="submit"] {
 
 #modal__gallery figure {
 	width: 18%;
-
 	position: relative;
 
 }
@@ -603,12 +613,12 @@ input[type="submit"] {
 
 #modal__gallery img {
 	object-fit: cover;
-	height: 80%;
+	height: 85%;
 	width: 100%;
 }
 
 .figure__icon {
-	position:absolute;
+	position: absolute;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -618,8 +628,77 @@ input[type="submit"] {
 	border-radius: 2px;
 	top: 6px;
 	right: 6px;
+	cursor: pointer;
 }
+
 .trash-can-icon {
 	color: #FFFFFF;
 	font-size: 9px;
+}
+
+/* MODAL ADD IMG */
+.back-arrow {
+	font-size: 21px;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+}
+
+.preview__bckgd {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 420px;
+	height: 169px;
+	background: #E8F1F7;
+	border-radius: 3px;
+	margin-top: 36px;
+}
+
+
+.preview__logo {
+	font-size: 46px;
+	color: #B9C5CC;
+	margin-top: 28px;
+}
+
+#preview__add-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 36px;
+	background: #CBD6DC;
+	border-radius: 50px;
+	margin-top: 21px;
+}
+
+#add-button__text {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 14px;
+	color: #306685;
+}
+
+#preview__form-reco {
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 10px;
+	color: #444444;
+	margin-top: 7px;
+}
+
+#modal__validation-button {
+	width: 237px;
+	height: 36px;
+	background: #A7A7A7;
+	border-radius: 60px;
+	border: none;
+	
+}
+.button-conatiner{
+	display: flex;
+	justify-content: center;
 }
