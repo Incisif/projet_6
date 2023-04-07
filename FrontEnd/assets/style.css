@@ -570,3 +570,10 @@ input[type="submit"] {
 	color: #D65353;
 	text-decoration: none;
 }
+#modal_validation-button{
+	width: 237px;
+	height: 36px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
