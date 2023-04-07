@@ -6,7 +6,7 @@ const gallery = document.createElement("div");
 
 //create a set to store the categories
 const setCategories = new Set();
-const worksData = await getWork()
+export const worksData = await getWork()
 worksData.forEach(work => {
     setCategories.add(work.category.name);
 });
@@ -119,10 +119,10 @@ function creationMode() {
         body.insertBefore(editionBar, body.firstChild);
         editionBar.innerHTML =
 
-            `<span  id= "editionBar_icone" class="fa-sharp fa-solid fa-pen-to-square"></span>
-            <p id= editionBar_text >Mode création</p>
-            <div id= "editionBar_publicationButton">
-                <p id= "publicationButton_text">Publier les changements<p/>
+            `<span  id= "editionBar__icone" class="fa-sharp fa-solid fa-pen-to-square"></span>
+            <p id= editionBar__text >Mode création</p>
+            <div id= "editionBar__publicationButton">
+                <p id= "publicationButton__text">Publier les changements<p/>
             </div>`;
 
         //Link to edit the introductory image
@@ -133,7 +133,7 @@ function creationMode() {
         introduction.append(introModifyButton);
 
         //Link to edit the introduction text
-        const introductionTitle = document.getElementById("introduction_title");
+        const introductionTitle = document.getElementById("introduction__title");
         const introTextModifyButton = document.createElement("div");
         introTextModifyButton.classList.add("txt-modify-container");
         introTextModifyButton.innerHTML = `<span class="fa-sharp fa-solid fa-pen-to-square" id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
