@@ -5,7 +5,7 @@ const portfolio = document.querySelector("#portfolio");
 const gallery = document.createElement("div");
 
 //create a set to store the categories
-const setCategories = new Set();
+export const setCategories = new Set();
 export const worksData = await getWork()
 worksData.forEach(work => {
     setCategories.add(work.category.name);
@@ -16,7 +16,7 @@ worksData.forEach(work => {
     setCategoriesId.add(work.category.id);
 });
 const categoriesId = Array.from(setCategoriesId);
-
+export const categories = Array.from(setCategories);
 
 /**
  * Generates a filter list for a given array of filters.

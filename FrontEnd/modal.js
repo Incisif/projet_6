@@ -1,4 +1,5 @@
-import { worksData } from "./index.js";
+import { worksData,categories } from "./index.js";
+
 
 // Toggles the visibility of the modal container and generates a new gallery
 export function toggleModal() {
@@ -15,7 +16,7 @@ export function toggleModal() {
 }
 
 //Create the modal gallery
-export function createGalleryModal(works) {
+ function createGalleryModal(works) {
     for (let element of works) {
         const modalGallery = document.querySelector("#modal__gallery")
         const figure = document.createElement("figure");
@@ -46,14 +47,28 @@ function updateModalContent() {
             <i class="fa-solid fa-xmark modal-trigger close-modal" ></i>
 			<H2 id="modal__title">Ajout photo</H2>
 			<div id="modal__content">
-                <div class="content__preview">
+                <form>
                     <div class="preview__bckgd">
                         <i class="fa-solid fa-image preview__logo"></i>
-                        <div id="preview__add-button">
-                            <p id="add-button__text">+ Ajouter photo</p>
-                        </div>
-                        <p id="preview__form-reco">jpg, png: 4 mo max </p> 
-                 </div>   
+                         <label for="file-upload" class="custom-file-upload">
+                            + Ajouter photo
+                         </label>
+                         <input type="file" accept="image/*" onchange="previewImage(event)" id="file-upload">
+                         <p id="preview__form-reco">jpg, png: 4mo max</p> 
+                    </div>
+                    <div class="preview__title">
+                        <label for="photo-title">Titre</label>
+                        <input type="text" id="photo-title" name="photo-title" placeholder="Donnez un titre à votre photo">
+                    </div>
+                    <div class="upload-categories">
+                        <label for="category">Catégorie</label>
+                        <select id="category">
+                            <option  value="${categories[0]}">${categories[0]}</option>
+                            <option  value="${categories[1]}">${categories[1]}</option>
+                            <option  value="${categories[2]}">${categories[2]}</option>
+                        </select>
+                    </div>
+                </form>   
 			</div>
 			<div id="modal__separation"></div>
 			<div class="button-conatiner">
@@ -61,5 +76,6 @@ function updateModalContent() {
             </div>
             `
 
+           
     })
 }
