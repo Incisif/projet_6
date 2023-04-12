@@ -1,11 +1,11 @@
 import { getWork } from "./api.js";
-import { toggleModal } from "./modal.js";
+import { modalHandler } from "./modal.js";
 
 const portfolio = document.querySelector("#portfolio");
 const gallery = document.createElement("div");
 
 //create a set to store the categories
-export const setCategories = new Set();
+const setCategories = new Set();
 export const worksData = await getWork()
 worksData.forEach(work => {
     setCategories.add(work.category.name);
@@ -16,7 +16,7 @@ worksData.forEach(work => {
     setCategoriesId.add(work.category.id);
 });
 const categoriesId = Array.from(setCategoriesId);
-export const categories = Array.from(setCategories);
+
 
 /**
  * Generates a filter list for a given array of filters.
@@ -142,14 +142,14 @@ function creationMode() {
         //Link to edit the gallery
         const portfolioTitle = document.querySelector("#portfolio h2");
         const galleryModifyButton = document.createElement("div");
-        galleryModifyButton.classList.add("gallery-edition-container", "modal-trigger");
+        galleryModifyButton.classList.add("gallery-edition-container", "first-modal-trigger");
         galleryModifyButton.innerHTML = `<span class="fa-sharp fa-solid fa-pen-to-square" id="modify-icone"></span><span id= "modify-text">Modifier</span>`;
         portfolioTitle.insertAdjacentElement("afterend", galleryModifyButton);
 
         //Hide filters in edition mode
         const filterList = document.querySelector("#portfolio ul");
         filterList.style.display = "none";
-        toggleModal()
+        modalHandler();
 
 
     }
