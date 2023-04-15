@@ -1,26 +1,44 @@
 export async function getWork() {
-    const workResponse = await fetch('http://localhost:5678/api/works');
-    const worksData = await workResponse.json();
-    return worksData
+  const workResponse = await fetch('http://localhost:5678/api/works');
+  const worksData = await workResponse.json();
+  return worksData
 }
-export async function deleteWork(id, token) {
-    const url = `http://localhost:5678/api/works/${id}`;
-    const options = {
+export async function fetchDeleteWork(id, token) {
+
+  try {
+    const response = await fetch(`http://localhost:5678/api/works/${id}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json',
+        'accept': '*/*',
         'Authorization': `Bearer ${token}`
       }
-    };
-  
-    try {
-      const response = await fetch(url, options);
-      if (response.ok) {
-        alert ("La photo a bien été supprimée !");
-      } else {
-        alert ("Erreur lors de la suppression de la photo !");
-      }
-    } catch (error) {
-      console.error(error);
+    });
+    if (response.ok) {
+      alert("La photo a bien été supprimée !");
+    } else {
+      alert("Erreur lors de la suppression de la photo !");
     }
+  } catch (error) {
+    console.error(error);
+
   }
+}
+export async function postNewWork(file, index, token) {
+  const formData = new FormData();
+  const titleInput = document.querySelector('#img-title');
+  const title = titleInput.value;
+  formData.append('image=', file.files[0]);
+  formData.append('title=', title);
+  formData.append('categoryId=', index);
+
+  const response = await fetch(`http://localhost:5678/api/works`, {
+    method: 'POST',
+    headers: {
+      'accept': 'application/json',
+      'Authorization': `Bearer ${token}`
+      
+    },
+    body: formData
+  });
+  
+}

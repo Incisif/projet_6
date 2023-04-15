@@ -1,5 +1,5 @@
 import { worksData } from "./index.js";
-import { deleteWork, getWork } from "./api.js";
+import { fetchDeleteWork, postNewWork } from "./api.js";
 const firstModalContainer = document.querySelector(".first-page-modal-container");
 
 export function modalHandler() {
@@ -24,10 +24,7 @@ export function modalHandler() {
         const backArrow = document.querySelector(".back-arrow")
 
         addButton.addEventListener("click", function () {
-            // Remove the "active" class from the first-page-modal-container
-
             firstModalContainer.classList.toggle("active");
-            // Add the "active" class to the second-page-modal-container
             secondModalContainer.classList.add("active");
         });
         secondModalTriggers.forEach(trigger => trigger.addEventListener("click", function () {
@@ -38,6 +35,7 @@ export function modalHandler() {
             secondModalContainer.classList.remove("active");
             firstModalContainer.classList.add("active");
         })
+        checkFormValidity();
 
     }
 
@@ -60,21 +58,88 @@ export function modalHandler() {
             figure.append(captionFigure);
             figure.append(trashCanContainer);
         }
-        deleteOneWork();
-        
+        deleteWorkListener();
+
     }
 
     toggleFirstPageModal();
     toggleSecondPageModal();
 
-    function  deleteOneWork() {
+    function deleteWorkListener() {
         const token = sessionStorage.getItem("token");
         const trashCanIcons = document.querySelectorAll(".trash-can-icon");
         trashCanIcons.forEach(icon => icon.addEventListener("click", function (event) {
             const workId = event.target.closest('.figure__icon').getAttribute('data-id');
             console.log(workId);
-           deleteWork(workId, token);
+            fetchDeleteWork(workId, token);
         }))
     }
-}
+    function previewImageFromFileInput() {
+        const fileInput = document.querySelector("#file-upload");
+        const previewImage = document.querySelector("#preview__img");
+        const previewInput = document.querySelector("#preview__input-visibility");
+        fileInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.addEventListener("load", function () {
+                    previewImage.setAttribute("src", this.result);
+                    previewImage.classList.add("active");
+                    previewInput.classList.add("hidden");
+                })
+                reader.readAsDataURL(file);
+            }
+        });
+        previewImage.addEventListener("click", function () {
+            fileInput.click();
+        });
+    }
+    previewImageFromFileInput()
 
+    function checkFormValidity() {
+        const form = document.querySelector("#myForm");
+        const titleInput = form.querySelector("#img-title");
+        const categoryInput = form.querySelector("#category");
+        const fileInput = form.querySelector("#file-upload");
+
+
+        let isTitleValid = false;
+        let isCategoryValid = false;
+        let isFileValid = false;
+
+        titleInput.addEventListener("change", function () {
+            isTitleValid = titleInput.value.length > 0;
+            updateSubmitButton();
+
+        });
+        categoryInput.addEventListener("change", function () {
+            isCategoryValid = categoryInput.value !== "default";
+            updateSubmitButton();
+
+
+        });
+        fileInput.addEventListener("change", function () {
+            isFileValid = fileInput.value !== "";
+            updateSubmitButton();
+
+        });
+
+        function updateSubmitButton() {
+            const submitBtn = document.querySelector("#modal__validation-button");
+            let valid = isTitleValid && isCategoryValid && isFileValid
+            console.log(valid)
+            if (valid) {
+                const token = sessionStorage.getItem("token");
+                const categorySelect = document.querySelector('#category');
+                const index = categorySelect.selectedIndex;
+                submitBtn.classList.add("active");
+                submitBtn.addEventListener("click", postNewWork(fileInput, index, token))
+                
+
+            } else if (submitBtn.classList.contains("active")) {
+                submitBtn.classList.remove("active");
+            }
+
+        }
+    }
+}

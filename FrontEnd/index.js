@@ -7,7 +7,6 @@ const gallery = document.createElement("div");
 //create a set to store the categories
 const setCategories = new Set();
 export const worksData = await getWork()
-console.log(worksData)
 worksData.forEach(work => {
     setCategories.add(work.category.name);
 });

@@ -49,30 +49,34 @@
 
 			<div id="modal__content">
 
-				<form>
+				<form id="myForm">
 
 					<div class="preview__bckgd">
+						<img id="preview__img" src="" alt="preview image">
+						<div id="preview__input-visibility">
 
-						<i class="fa-solid fa-image preview__logo"></i>
-						<label for="file-upload" class="custom-file-upload">
-							+ Ajouter photo
-						</label>
-						<input type="file" accept="image/*" onchange="previewImage(event)" id="file-upload">
-						<p id="preview__form-reco">jpg, png: 4mo max</p>
+							<i class="fa-solid fa-image preview__logo"></i>
+							<label for="file-upload" class="custom-file-upload">
+								+ Ajouter photo
+							</label>
+							<input type="file" accept="image/*" id="file-upload">
+							<p id="preview__form-reco">jpg, png: 4mo max</p>
+						</div>
 					</div>
 
 					<div class="preview__title">
 						<label for="photo-title">Titre</label>
-						<input type="text" id="photo-title" name="photo-title"
+						<input type="text" id="img-title" name="photo-title"
 							placeholder="Donnez un titre à votre photo">
 					</div>
 
 					<div class="upload-categories">
 						<label for="category">Catégorie</label>
 						<select id="category">
-							<option value="$Objets">Objets</option>
-							<option value="Appartements">Appartements</option>
-							<option value="$Hotel & restaurants">Hotel & restaurants</option>
+							<option value="default"></option>
+							<option id="1" value="Objets">Objets</option>
+							<option id="2" value="Appartements">Appartements</option>
+							<option id="3" value="Hotel & restaurants">Hotel & restaurants</option>
 						</select>
 					</div>
 				</form>
