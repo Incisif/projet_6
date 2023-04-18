@@ -659,6 +659,7 @@ input[type="submit"]:hover {
 .hidden {
 	display: none;
 }
+
 .back-arrow {
 	font-size: 21px;
 	position: absolute;
@@ -676,20 +677,23 @@ input[type="submit"]:hover {
 	margin-top: 36px;
 	position: relative;
 }
-#preview__input-visibility{
+
+#preview__input-visibility {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	
+
 }
-#preview__img{
+
+#preview__img {
 	display: none;
 	position: absolute;
 	top: 0;
 	height: 169px;
 	object-fit: cover;
 }
-#preview__img.active{
+
+#preview__img.active {
 	display: block;
 }
 
@@ -737,11 +741,18 @@ input[type="file"] {
 	background: #A7A7A7;
 	border-radius: 60px;
 	border: none;
-	margin-top: 32px;
+	margin: 32px 0 55px 0;
+	font-family: 'Syne';
+	font-weight: 700;
+	color: white;
+	text-align: center;
+	cursor: pointer;
 }
-#modal__validation-button.active{
+
+#modal__validation-button.active {
 	background-color: #1D6154;
 }
+
 
 .custom-file-upload {
 	display: flex;

@@ -27,18 +27,17 @@ export async function postNewWork(file, index, token) {
   const formData = new FormData();
   const titleInput = document.querySelector('#img-title');
   const title = titleInput.value;
-  formData.append('image=', file.files[0]);
-  formData.append('title=', title);
-  formData.append('categoryId=', index);
+  formData.append('image', file.files[0]);
+  formData.append('title', title);
+  formData.append('category', index);
 
   const response = await fetch(`http://localhost:5678/api/works`, {
     method: 'POST',
     headers: {
       'accept': 'application/json',
       'Authorization': `Bearer ${token}`
-      
     },
     body: formData
   });
-  
+  console.log(response);
 }

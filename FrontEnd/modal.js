@@ -1,14 +1,14 @@
-import { worksData } from "./index.js";
-import { fetchDeleteWork, postNewWork } from "./api.js";
+import { getWork, fetchDeleteWork, postNewWork } from "./api.js";
+
 const firstModalContainer = document.querySelector(".first-page-modal-container");
 
-export function modalHandler() {
+export  function modalHandler() {
     // Toggles the visibility of the modal container and generates a new gallery
-    function toggleFirstPageModal() {
+    
+    async function toggleFirstPageModal() {
         const firstModalTriggers = document.querySelectorAll(".first-modal-trigger");
-
+        const worksData = await getWork()
         firstModalTriggers.forEach(trigger => trigger.addEventListener("click", function () {
-
             const modalGallery = document.querySelector("#modal__gallery");
             firstModalContainer.classList.toggle("active");
             modalGallery.innerHTML = "";
@@ -58,10 +58,10 @@ export function modalHandler() {
             figure.append(captionFigure);
             figure.append(trashCanContainer);
         }
+        
         deleteWorkListener();
-
     }
-
+    
     toggleFirstPageModal();
     toggleSecondPageModal();
 
@@ -69,10 +69,11 @@ export function modalHandler() {
         const token = sessionStorage.getItem("token");
         const trashCanIcons = document.querySelectorAll(".trash-can-icon");
         trashCanIcons.forEach(icon => icon.addEventListener("click", function (event) {
+            event.preventDefault(); // ajout de la méthode preventDefault()
             const workId = event.target.closest('.figure__icon').getAttribute('data-id');
             console.log(workId);
             fetchDeleteWork(workId, token);
-        }))
+          }));
     }
     function previewImageFromFileInput() {
         const fileInput = document.querySelector("#file-upload");
@@ -125,6 +126,7 @@ export function modalHandler() {
         });
 
         function updateSubmitButton() {
+
             const submitBtn = document.querySelector("#modal__validation-button");
             let valid = isTitleValid && isCategoryValid && isFileValid
             console.log(valid)
@@ -133,12 +135,15 @@ export function modalHandler() {
                 const categorySelect = document.querySelector('#category');
                 const index = categorySelect.selectedIndex;
                 submitBtn.classList.add("active");
-                submitBtn.addEventListener("click", postNewWork(fileInput, index, token))
-                
+                submitBtn.addEventListener("click", function () {
+                    postNewWork(fileInput, index, token);
+                });
+                console.log(index)
 
             } else if (submitBtn.classList.contains("active")) {
                 submitBtn.classList.remove("active");
             }
+
 
         }
     }
