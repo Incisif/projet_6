@@ -39,5 +39,7 @@ export async function postNewWork(file, index, token) {
     },
     body: formData
   });
-  console.log(response);
+  if(response.ok){
+    alert("Le projet a bien était posté!")
+  }
 }

@@ -2,9 +2,9 @@ import { getWork, fetchDeleteWork, postNewWork } from "./api.js";
 
 const firstModalContainer = document.querySelector(".first-page-modal-container");
 
-export  function modalHandler() {
+export function modalHandler() {
     // Toggles the visibility of the modal container and generates a new gallery
-    
+
     async function toggleFirstPageModal() {
         const firstModalTriggers = document.querySelectorAll(".first-modal-trigger");
         const worksData = await getWork()
@@ -58,22 +58,26 @@ export  function modalHandler() {
             figure.append(captionFigure);
             figure.append(trashCanContainer);
         }
-        
+
         deleteWorkListener();
     }
-    
+
     toggleFirstPageModal();
     toggleSecondPageModal();
 
     function deleteWorkListener() {
         const token = sessionStorage.getItem("token");
         const trashCanIcons = document.querySelectorAll(".trash-can-icon");
-        trashCanIcons.forEach(icon => icon.addEventListener("click", function (event) {
+        const modalGallery = document.querySelector("#modal__gallery");
+        trashCanIcons.forEach(icon => icon.addEventListener("click", async function (event) {
             event.preventDefault(); // ajout de la méthode preventDefault()
             const workId = event.target.closest('.figure__icon').getAttribute('data-id');
             console.log(workId);
             fetchDeleteWork(workId, token);
-          }));
+            const worksData = await getWork();
+            modalGallery.innerHTML = "";
+            createGalleryModal(worksData);
+        }));
     }
     function previewImageFromFileInput() {
         const fileInput = document.querySelector("#file-upload");
@@ -137,6 +141,7 @@ export  function modalHandler() {
                 submitBtn.classList.add("active");
                 submitBtn.addEventListener("click", function () {
                     postNewWork(fileInput, index, token);
+                    resetForm();
                 });
                 console.log(index)
 
@@ -146,5 +151,19 @@ export  function modalHandler() {
 
 
         }
+    }
+    function resetForm() {
+        const submitBtn = document.querySelector("#modal__validation-button");
+        const previewImage = document.querySelector("#preview__img");
+        const previewInput = document.querySelector("#preview__input-visibility");
+        const categorySelect = document.querySelector("#category");
+        const imgInput = document.querySelector("#img-title");
+
+        submitBtn.classList.remove("active");
+        previewImage.classList.remove("active");
+        previewInput.classList.remove("hidden");
+        categorySelect.selectedIndex = 0;
+        imgInput.value = "";
+        previewImage.removeAttribute("src");
     }
 }
