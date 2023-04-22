@@ -77,7 +77,7 @@ function activateFilters(filters, filterItem) {
 *
 * @param {string[]} works )- An array of objects representing the works to be displayed in the gallery.
 */
-function generateGallery(works) {
+export function generateGallery(works) {
 
     gallery.classList.add("gallery");
     portfolio.append(gallery);

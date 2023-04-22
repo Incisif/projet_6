@@ -504,7 +504,7 @@ input[type="submit"]:hover {
 	cursor: pointer;
 }
 
-/*MODAL GALLERY*/
+/*FIRST MODAL*/
 .first-page-modal-container {
 	display: none;
 	position: fixed;
@@ -655,7 +655,7 @@ input[type="submit"]:hover {
 	font-size: 9px;
 }
 
-/* MODAL ADD IMG */
+/* SECOND MODAL */
 .hidden {
 	display: none;
 }
@@ -738,7 +738,7 @@ input[type="file"] {
 #modal__validation-button {
 	width: 237px;
 	height: 36px;
-	background: #A7A7A7;
+	background-color: #1D6154;
 	border-radius: 60px;
 	border: none;
 	margin: 32px 0 55px 0;
@@ -748,11 +748,6 @@ input[type="file"] {
 	text-align: center;
 	cursor: pointer;
 }
-
-#modal__validation-button.active {
-	background-color: #1D6154;
-}
-
 
 .custom-file-upload {
 	display: flex;
@@ -824,4 +819,7 @@ input[type="file"] {
 	border-radius: 0;
 	padding-left: 16px;
 
+}
+#second-modal__confirmation-message{
+	color: red;
 }

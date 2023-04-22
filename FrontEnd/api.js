@@ -4,6 +4,10 @@ export async function getWork() {
   return worksData
 }
 export async function fetchDeleteWork(id, token) {
+  const message = document.getElementById("first-modal__confirmation-message");
+  function hideMessage() {
+    message.innerHTML = "";
+  }
 
   try {
     const response = await fetch(`http://localhost:5678/api/works/${id}`, {
@@ -14,9 +18,11 @@ export async function fetchDeleteWork(id, token) {
       }
     });
     if (response.ok) {
-      alert("La photo a bien été supprimée !");
+      message.innerHTML = "Le projet a bien été supprimé!";
+      setTimeout(hideMessage, 3000);
     } else {
-      alert("Erreur lors de la suppression de la photo !");
+      message.innerHTML = "Erreur lors de la suppression du projet!";
+      setTimeout(hideMessage, 3000);
     }
   } catch (error) {
     console.error(error);
@@ -24,6 +30,10 @@ export async function fetchDeleteWork(id, token) {
   }
 }
 export async function postNewWork(file, index, token) {
+  function hideMessage() {
+    message.innerHTML = "";
+  }
+  const message = document.getElementById("second-modal__confirmation-message");
   const formData = new FormData();
   const titleInput = document.querySelector('#img-title');
   const title = titleInput.value;
@@ -39,7 +49,8 @@ export async function postNewWork(file, index, token) {
     },
     body: formData
   });
-  if(response.ok){
-    alert("Le projet a bien était posté!")
-  }
+  if (response.ok) {
+    message.innerHTML = "Le projet a bien été posté!";
+    setTimeout(hideMessage, 3000);
+  } 
 }

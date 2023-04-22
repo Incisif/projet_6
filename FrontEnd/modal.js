@@ -1,23 +1,22 @@
 import { getWork, fetchDeleteWork, postNewWork } from "./api.js";
+import { generateGallery } from "./index.js"
+
 
 const firstModalContainer = document.querySelector(".first-page-modal-container");
 
 export function modalHandler() {
     // Toggles the visibility of the modal container and generates a new gallery
 
-    async function toggleFirstPageModal() {
+    function toggleFirstPageModal() {
         const firstModalTriggers = document.querySelectorAll(".first-modal-trigger");
-        const worksData = await getWork()
         firstModalTriggers.forEach(trigger => trigger.addEventListener("click", function () {
-            const modalGallery = document.querySelector("#modal__gallery");
             firstModalContainer.classList.toggle("active");
-            modalGallery.innerHTML = "";
-            createGalleryModal(worksData);
+            updateModalGallery();
+
         }));
     }
 
     function toggleSecondPageModal() {
-
         const secondModalContainer = document.querySelector(".second-page-modal-container");
         const secondModalTriggers = document.querySelectorAll(".second-modal-trigger");
         const addButton = document.querySelector("#modal__add-button");
@@ -34,8 +33,26 @@ export function modalHandler() {
 
             secondModalContainer.classList.remove("active");
             firstModalContainer.classList.add("active");
+            updateModalGallery();
+            
         })
-        checkFormValidity();
+        
+        submitButtonHandler();
+        
+
+    }
+    async function updateModalGallery() {
+        const worksData = await getWork()
+        const modalGallery = document.querySelector("#modal__gallery");
+        modalGallery.innerHTML = "";
+        createGalleryModal(worksData);
+        deleteWorkListener();
+    }
+    async function updateIndexGallery() {
+        const worksData = await getWork();
+        const indexGallery = document.querySelector(".gallery");
+        indexGallery.innerHTML = "";
+        generateGallery(worksData)
 
     }
 
@@ -59,7 +76,7 @@ export function modalHandler() {
             figure.append(trashCanContainer);
         }
 
-        deleteWorkListener();
+
     }
 
     toggleFirstPageModal();
@@ -68,15 +85,14 @@ export function modalHandler() {
     function deleteWorkListener() {
         const token = sessionStorage.getItem("token");
         const trashCanIcons = document.querySelectorAll(".trash-can-icon");
-        const modalGallery = document.querySelector("#modal__gallery");
         trashCanIcons.forEach(icon => icon.addEventListener("click", async function (event) {
-            event.preventDefault(); // ajout de la méthode preventDefault()
+            event.preventDefault();
             const workId = event.target.closest('.figure__icon').getAttribute('data-id');
             console.log(workId);
-            fetchDeleteWork(workId, token);
-            const worksData = await getWork();
-            modalGallery.innerHTML = "";
-            createGalleryModal(worksData);
+            await fetchDeleteWork(workId, token);
+            updateModalGallery();
+            updateIndexGallery();
+
         }));
     }
     function previewImageFromFileInput() {
@@ -99,67 +115,64 @@ export function modalHandler() {
             fileInput.click();
         });
     }
+
     previewImageFromFileInput()
 
-    function checkFormValidity() {
-        const form = document.querySelector("#myForm");
-        const titleInput = form.querySelector("#img-title");
-        const categoryInput = form.querySelector("#category");
-        const fileInput = form.querySelector("#file-upload");
+    function submitButtonHandler() {
 
-
-        let isTitleValid = false;
-        let isCategoryValid = false;
-        let isFileValid = false;
-
-        titleInput.addEventListener("change", function () {
-            isTitleValid = titleInput.value.length > 0;
-            updateSubmitButton();
-
-        });
-        categoryInput.addEventListener("change", function () {
-            isCategoryValid = categoryInput.value !== "default";
-            updateSubmitButton();
-
-
-        });
-        fileInput.addEventListener("change", function () {
-            isFileValid = fileInput.value !== "";
-            updateSubmitButton();
-
-        });
-
-        function updateSubmitButton() {
-
-            const submitBtn = document.querySelector("#modal__validation-button");
-            let valid = isTitleValid && isCategoryValid && isFileValid
-            console.log(valid)
-            if (valid) {
-                const token = sessionStorage.getItem("token");
-                const categorySelect = document.querySelector('#category');
-                const index = categorySelect.selectedIndex;
-                submitBtn.classList.add("active");
-                submitBtn.addEventListener("click", function () {
-                    postNewWork(fileInput, index, token);
-                    resetForm();
-                });
-                console.log(index)
-
-            } else if (submitBtn.classList.contains("active")) {
-                submitBtn.classList.remove("active");
-            }
-
-
+        const message = document.getElementById("second-modal__confirmation-message");
+        function hideMessage() {
+            message.innerHTML = "";
         }
-    }
-    function resetForm() {
+        
         const submitBtn = document.querySelector("#modal__validation-button");
+        submitBtn.addEventListener("click", async function (event) {
+            event.preventDefault();
+            const form = document.querySelector("#myForm");
+            const fileInput = form.querySelector("#file-upload");
+            const titleInput = document.querySelector("#img-title");
+            const categoryInput = form.querySelector("#category");
+            const token = sessionStorage.getItem("token");
+            const categorySelect = document.querySelector('#category');
+            const index = categorySelect.selectedIndex;
+            let isTitleValid = titleInput.value.length > 0;
+            let isCategoryValid = categoryInput.value !== "default";
+            let isFileValid = fileInput.value !== "";
+
+            if (!isTitleValid) {
+                console.log(isTitleValid);
+                message.innerHTML = "Veuillez saisir un titre!";
+
+            }
+            else if (!isCategoryValid) {
+                message.innerHTML = "Veuillez choisir une catégorie!";
+
+            }
+            else if (!isFileValid) {
+                message.innerHTML = "Veuillez sélectionner une image!";
+
+            }
+            
+            else if (isTitleValid && isCategoryValid && isFileValid) {
+                
+                hideMessage();
+                await postNewWork(fileInput, index, token);
+                updateIndexGallery();
+                updateModalGallery();
+                resetForm();
+                
+            }
+        });
+    }
+    
+    function resetForm() {
+
         const previewImage = document.querySelector("#preview__img");
         const previewInput = document.querySelector("#preview__input-visibility");
         const categorySelect = document.querySelector("#category");
         const imgInput = document.querySelector("#img-title");
 
-        submitBtn.classList.remove("active");
+
         previewImage.classList.remove("active");
         previewInput.classList.remove("hidden");
         categorySelect.selectedIndex = 0;
