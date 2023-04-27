@@ -1,5 +1,10 @@
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
+const message = document.getElementById("login-message");
+
+function hideMessage(){
+    message.innerHTML="";
+}
 
 // Function to handle the login process
 async function login(email, password) {
@@ -26,7 +31,8 @@ async function login(email, password) {
 
     } catch (error) {
         console.error(error);
-        alert("E-mail ou mot de passe incorrect");
+        message.innerHTML="E-mail ou mot de passe incorrect";
+        setTimeout(hideMessage,3000);
     }
 }
 
@@ -35,14 +41,17 @@ document.forms[0].addEventListener("submit", (e) => {
     e.preventDefault();
     const email = emailInput.value;
     const password = passwordInput.value;
+    
 
     if (email.trim === '' || !email.includes('@')) {
-        alert("E-mail invalide");
+        message.innerHTML="E-mail invalide";
+        setTimeout(hideMessage,3000);
         return;
 
     }
     if (password.trim === '') {
-        alert("Veuillez entrer un mot de passe valide");
+        message.innerHTML="Veuillez entrer un mot de passe valide";
+        setTimeout(hideMessage,3000);
         return;
     }
     login(email, password);

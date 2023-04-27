@@ -823,3 +823,11 @@ input[type="file"] {
 #second-modal__confirmation-message{
 	color: red;
 }
+#first-modal__confirmation-message{
+	color: green;
+}
+#login-message{
+	color: red;
+	text-align: center;
+	margin-top: 1em;
+}
