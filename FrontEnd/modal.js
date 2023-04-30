@@ -5,8 +5,8 @@ import { generateGallery } from "./index.js"
 const firstModalContainer = document.querySelector(".first-page-modal-container");
 
 export function modalHandler() {
-    // Toggles the visibility of the modal container and generates a new gallery
 
+    //Toggles the first page modal and updates its content.
     function toggleFirstPageModal() {
         const firstModalTriggers = document.querySelectorAll(".first-modal-trigger");
         firstModalTriggers.forEach(trigger => trigger.addEventListener("click", function () {
@@ -16,6 +16,7 @@ export function modalHandler() {
         }));
     }
 
+    //Toggles the second page modal and updates its content.
     function toggleSecondPageModal() {
         const secondModalContainer = document.querySelector(".second-page-modal-container");
         const secondModalTriggers = document.querySelectorAll(".second-modal-trigger");
@@ -34,11 +35,11 @@ export function modalHandler() {
             secondModalContainer.classList.remove("active");
             firstModalContainer.classList.add("active");
             updateModalGallery();
-            
+
         })
-        
+
         submitButtonHandler();
-        
+
 
     }
     async function updateModalGallery() {
@@ -56,7 +57,11 @@ export function modalHandler() {
 
     }
 
-    //Create the modal gallery
+    /**
+    * Create gallery modal from the given works array.
+    * @param {Array} works - Array of work objects.
+    * @returns {void}
+    */
     function createGalleryModal(works) {
         for (let element of works) {
             const modalGallery = document.querySelector("#modal__gallery")
@@ -82,6 +87,13 @@ export function modalHandler() {
     toggleFirstPageModal();
     toggleSecondPageModal();
 
+    /**
+    Adds a click event listener to all trash can icons to delete the corresponding work.
+    Retrieves the token from the sessionStorage.
+    @function
+    @async
+    @returns {void}
+    */
     function deleteWorkListener() {
         const token = sessionStorage.getItem("token");
         const trashCanIcons = document.querySelectorAll(".trash-can-icon");
@@ -95,6 +107,11 @@ export function modalHandler() {
 
         }));
     }
+
+    /**
+    Preview the image selected in a file input and display it in an image tag.
+    When the preview image is clicked, trigger a click on the corresponding file input.
+    */
     function previewImageFromFileInput() {
         const fileInput = document.querySelector("#file-upload");
         const previewImage = document.querySelector("#preview__img");
@@ -117,14 +134,15 @@ export function modalHandler() {
     }
 
     previewImageFromFileInput()
-
+    /**
+    Handles the click event of the submit button on the form, validates the form inputs,
+    and sends a POST request to create a new work if all inputs are valid.
+    */
     function submitButtonHandler() {
-
         const message = document.getElementById("second-modal__confirmation-message");
         function hideMessage() {
             message.innerHTML = "";
         }
-        
         const submitBtn = document.querySelector("#modal__validation-button");
         submitBtn.addEventListener("click", async function (event) {
             event.preventDefault();
@@ -140,31 +158,27 @@ export function modalHandler() {
             let isFileValid = fileInput.value !== "";
 
             if (!isTitleValid) {
-                console.log(isTitleValid);
                 message.innerHTML = "Veuillez saisir un titre!";
-
             }
             else if (!isCategoryValid) {
                 message.innerHTML = "Veuillez choisir une catégorie!";
-
             }
             else if (!isFileValid) {
                 message.innerHTML = "Veuillez sélectionner une image!";
-
             }
-            
             else if (isTitleValid && isCategoryValid && isFileValid) {
-                
                 hideMessage();
                 await postNewWork(fileInput, index, token);
                 updateIndexGallery();
                 updateModalGallery();
                 resetForm();
-                
             }
         });
     }
-    
+
+    /**
+    * Resets the form by clearing the input values and setting default values for the category selection and preview image.
+    */
     function resetForm() {
 
         const previewImage = document.querySelector("#preview__img");

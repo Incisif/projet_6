@@ -1,8 +1,26 @@
+/**
+ * Retrieves a JSON array of work items from the server using an HTTP GET request.
+ *
+ * @async
+ * @function
+ * @returns {Promise<Array>} - A Promise object that resolves with an array of work items.
+ */
 export async function getWork() {
   const workResponse = await fetch('http://localhost:5678/api/works');
   const worksData = await workResponse.json();
   return worksData
 }
+
+
+/**
+ * Deletes a work item with the specified ID from the server using an HTTP DELETE request with an authorization token.
+ *
+ * @async
+ * @function
+ * @param {string} id - The ID of the work item to be deleted.
+ * @param {string} token - The authorization token to be used for the request.
+ * @returns {Promise<void>} - A Promise object that resolves once the deletion is successful.
+ */
 export async function fetchDeleteWork(id, token) {
   const message = document.getElementById("first-modal__confirmation-message");
   function hideMessage() {
@@ -29,6 +47,16 @@ export async function fetchDeleteWork(id, token) {
 
   }
 }
+/**
+ * Posts a new work item to the server using an HTTP POST request with an authorization token.
+ *
+ * @async
+ * @function
+ * @param {Object} file - The file object to be uploaded.
+ * @param {number} index - The index of the category to which the work item belongs.
+ * @param {string} token - The authorization token to be used for the request.
+ * @returns {Promise<void>} - A Promise object that resolves once the post is successful.
+ */
 export async function postNewWork(file, index, token) {
   function hideMessage() {
     message.innerHTML = "";
