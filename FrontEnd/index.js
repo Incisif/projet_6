@@ -128,7 +128,6 @@ function creationMode() {
     const loginHtml = document.getElementById("login");
     const tokenValue = sessionStorage.getItem("token");
 
-
     if (tokenValue !== null) {
         loginHtml.innerHTML = "logout";
         loginHtml.removeAttribute("href");
@@ -185,7 +184,7 @@ creationMode();
 function logout(loginLink) {
     loginLink.addEventListener("click", () => {
         sessionStorage.removeItem("token");
-        loginLink.setAttribute("href", "/FrontEnd/login.html");
+        loginLink.setAttribute("href", "./login.html");
 
     });
 }
