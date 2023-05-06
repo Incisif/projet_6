@@ -65,6 +65,20 @@ export async function postNewWork(file, index, token) {
   const formData = new FormData();
   const titleInput = document.querySelector('#img-title');
   const title = titleInput.value;
+
+  // Checking file type
+  if (file.files[0].type !== "image/jpeg" && file.files[0].type !== "image/png") {
+    message.innerHTML = "Le fichier doit être en format JPEG ou PNG.";
+    setTimeout(hideMessage, 3000);
+    return;
+  }
+
+  //Checking file size"
+  if (file.files[0].size > 4 * 1024 * 1024) { 
+    message.innerHTML = "Le fichier ne doit pas dépasser 4 Mo.";
+    setTimeout(hideMessage, 3000);
+    return;
+  }
   formData.append('image', file.files[0]);
   formData.append('title', title);
   formData.append('category', index);
@@ -80,5 +94,5 @@ export async function postNewWork(file, index, token) {
   if (response.ok) {
     message.innerHTML = "Le projet a bien été posté!";
     setTimeout(hideMessage, 3000);
-  } 
+  }
 }
